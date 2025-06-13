@@ -12,18 +12,25 @@ class TestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-     return Scaffold(
-      appBar: AppBar(
-        title: Text('Test Screen')
-      ),
-              body: Center(
+    return Scaffold(
+        appBar: AppBar(
+            title: Text('Test Screen',), centerTitle: true,
+        ),
+        body: Center(
           child: Builder(
             builder: (context) {
-              return Column(
-                children: [
-                  const Text('Hello, World!'),
-                  const SizedBox(height: 20),
-                ]
+              return ConstrainedBox(
+                constraints: const BoxConstraints( maxHeight: 900, maxWidth:1180),
+                child: Column(
+                  children: [
+                    
+                    Row(children: [const Text('Hello, World!',)]),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: Placeholder())
+                  ]
+                ),
+                
               );
             }
           )
@@ -32,4 +39,7 @@ class TestScreen extends StatelessWidget {
      );
 
   }
+
+  
+  
 }
