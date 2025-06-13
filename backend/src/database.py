@@ -10,7 +10,7 @@ class DatabaseManager:
         else: 
             self.path = self._test_database_path()
 
-    def _test_database_path() -> str:
+    def _test_database_path(self) -> str:
         '''
         Returns the directory path of the test database.
         '''
