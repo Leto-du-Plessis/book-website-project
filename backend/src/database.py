@@ -44,7 +44,21 @@ class DatabaseManager:
                        ''', (name,))
         row = cursor.fetchone()
         conn.close()
-        
-        return row[0]
 
+        return row[0]
+    
+    def fetch_document_from_id(self, id: int):
+        '''
+        Fetch a document with the provided id.
+        '''
+        conn = sql.connect(self.path)
+        cursor = conn.cursor()
+
+        cursor.execute('''
+                       SELECT body FROM test_database WHERE id = ?
+                       ''', (id, ))
+        row = cursor.fetchone()
+        conn.close()
+
+        return row[0]
 
