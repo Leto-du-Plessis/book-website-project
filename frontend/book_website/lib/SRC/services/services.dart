@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 
+/// Document service which can fetch documents from the backend
 class DocumentService {
 
   final String apiURL = "http://127.0.0.1:8000";
