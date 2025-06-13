@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
-
-
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ReaderScreen extends StatefulWidget {
+  const ReaderScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ReaderScreen> createState() => _ReaderScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ReaderScreenState extends State<ReaderScreen> {
   final QuillController _controller = QuillController.basic();
   final FocusNode _focusNode = FocusNode();
 
@@ -24,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Quill Example'),
+        title: Text('Reader'),
       ),
       body: SafeArea(
         child: Column(
