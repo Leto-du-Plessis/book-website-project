@@ -11,7 +11,7 @@ cursor = conn.cursor()
 
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS test_database (
-               id INTEGER NOT NULL,
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
                name TEXT,
                body TEXT
                )
