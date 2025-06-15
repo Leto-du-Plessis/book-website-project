@@ -2,7 +2,6 @@ import 'reader_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_quill/flutter_quill.dart';
 
-
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
 
@@ -21,7 +20,8 @@ class TestScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Expanded(
-                      child: ReaderScreen())
+                      child: ReaderScreen()
+                    )
                   ]
                 ),
                 
@@ -29,11 +29,6 @@ class TestScreen extends StatelessWidget {
             }
           )
         )
-
      );
-
   }
-
-  
-  
 }
