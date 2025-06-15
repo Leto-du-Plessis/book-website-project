@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_quill/flutter_quill.dart';
 import 'package:super_editor/super_editor.dart';
 
 class ReaderScreen extends StatefulWidget {
@@ -10,8 +9,6 @@ class ReaderScreen extends StatefulWidget {
 }
 
 class _ReaderScreenState extends State<ReaderScreen> {
-  //final QuillController _controller = QuillController.basic();
-  //final FocusNode _focusNode = FocusNode();
   late final MutableDocument _document;
   late final MutableDocumentComposer _composer;
   late final Editor _editor;
@@ -40,40 +37,44 @@ class _ReaderScreenState extends State<ReaderScreen> {
   }
 
   @override
-  Widget build(context) {
-    return SuperEditor(
-      editor: _editor,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SuperEditor(
+        editor: _editor,
+        stylesheet: Stylesheet(
+          rules: [
+            StyleRule( 
+              const BlockSelector("paragraph"),
+              (doc, node) => {
+                "maxWidth": double.infinity,
+              },
+            ),
+          ], 
+          inlineTextStyler: inlineTextStyler
+        ),
+      ),
     );
   }
+}
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('Reader'),
-  //     ),
-  //     body: SafeArea(
-  //       child: Column(
-  //         children: [
-  //           QuillSimpleToolbar(
-  //             controller: _controller,
-  //           ),
-  //           Expanded(
-  //             child: QuillEditor.basic(
-  //               controller: _controller,
-  //               focusNode: _focusNode,
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
+TextStyle inlineTextStyler(Set<Attribution> attributions, TextStyle base) {
+  TextStyle result = base;
 
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   _focusNode.dispose();
-  //   super.dispose();
-  // }
+  if (attributions.contains(boldAttribution)) {
+    result = result.merge(const TextStyle(fontWeight: FontWeight.bold));
+  }
+  if (attributions.contains(italicsAttribution)) {
+    result = result.merge(const TextStyle(fontStyle: FontStyle.italic));
+  }
+  if (attributions.contains(underlineAttribution)) {
+    result = result.merge(const TextStyle(decoration: TextDecoration.underline));
+  }
+  if (attributions.contains(strikethroughAttribution)) {
+    result = result.merge(const TextStyle(decoration: TextDecoration.lineThrough));
+  }
+  if (attributions.contains(header1Attribution)) {
+    result = result.merge(const TextStyle(fontWeight: FontWeight.bold, fontSize: 30));
+  }
+
+  return result;
 }
