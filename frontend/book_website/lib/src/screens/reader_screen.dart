@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:super_editor/super_editor.dart';
 
+import '../widgets/document_converter.dart';
+
 class ReaderScreen extends StatefulWidget {
   const ReaderScreen({super.key});
 
@@ -17,21 +19,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
   void initState() {
     super.initState();
 
-    _document = MutableDocument(
-      nodes: [
-        ParagraphNode( 
-          id: Editor.createNodeId(),
-          text: AttributedText('This is a header'),
-          metadata: {
-            'blockType': header1Attribution,
-          }
-        ),
-        ParagraphNode(  
-          id: Editor.createNodeId(),
-          text: AttributedText('This is the first paragraph'),
-        ),
-      ],
-    );
+    _document = DocumentConverter.defaultDocument();
     _composer = MutableDocumentComposer();
     _editor = createDefaultDocumentEditor(document: _document, composer: _composer);
   }
@@ -46,9 +34,17 @@ class _ReaderScreenState extends State<ReaderScreen> {
             StyleRule( 
               const BlockSelector("paragraph"),
               (doc, node) => {
-                "maxWidth": double.infinity,
+                Styles.maxWidth: double.infinity,
               },
             ),
+            StyleRule( 
+              const BlockSelector("header1"),
+              (doc, node) => {
+                Styles.textAlign: TextAlign.center,
+                Styles.padding: CascadingPadding.all(16),
+                Styles.maxWidth: double.infinity,
+              }
+            )
           ], 
           inlineTextStyler: inlineTextStyler
         ),
