@@ -13,22 +13,31 @@ class TestScreen extends StatelessWidget {
             title: Text('Test Screen',), centerTitle: true,
         ),
         body: Center(
-          child: Builder(
-            builder: (context) {
-              return ConstrainedBox(
-                constraints: const BoxConstraints( maxHeight: 900, maxWidth:1180),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ReaderScreen()
-                    )
-                  ]
-                ),
-                
-              );
-            }
+          child: Container(
+            margin: EdgeInsetsGeometry.all(100),
+            decoration: BoxDecoration(
+              border: Border.all(),
+            ),
+            padding: EdgeInsetsGeometry.all(10),
+            child: ReaderScreen(),
           )
         )
+        // body: Center(
+        //   child: Builder(
+        //     builder: (context) {
+        //       return ConstrainedBox(
+        //         constraints: const BoxConstraints( maxHeight: 900, maxWidth:1180),
+        //         child: Column(
+        //           children: [
+        //             Expanded(
+        //               child: ReaderScreen()
+        //             )
+        //           ]
+        //         ),
+        //       );
+        //     }
+        //   )
+        // )
      );
   }
 }
