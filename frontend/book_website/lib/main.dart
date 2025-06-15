@@ -1,7 +1,8 @@
+import 'package:book_website/src/screens/test_screen.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_quill/flutter_quill.dart';
 //import 'package:flutter_localizations/flutter_localizations.dart';
-import 'src/Screens/test_screen.dart';
+//import 'src/Screens/test_screen.dart';
 
 void main() => runApp(const MainApp());
 
@@ -12,7 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(useMaterial3: true),
-      home: TestScreen(),
+      home: HomeScreen(),
       // localizationsDelegates: [
       //   GlobalMaterialLocalizations.delegate,
       //   GlobalCupertinoLocalizations.delegate,
