@@ -22,22 +22,6 @@ class TestScreen extends StatelessWidget {
             child: ReaderScreen(),
           )
         )
-        // body: Center(
-        //   child: Builder(
-        //     builder: (context) {
-        //       return ConstrainedBox(
-        //         constraints: const BoxConstraints( maxHeight: 900, maxWidth:1180),
-        //         child: Column(
-        //           children: [
-        //             Expanded(
-        //               child: ReaderScreen()
-        //             )
-        //           ]
-        //         ),
-        //       );
-        //     }
-        //   )
-        // )
      );
   }
 }
