@@ -1,0 +1,61 @@
+
+
+Backend: [SQLite database - Python API - Backend API] (runs on server, long term persistent memory)
+Frontend: [Backend bindings - Flutter application (UI)] (code is stored on server, sent to user, runs in browser/device, short term memory)
+
+SQLite database: we have temporary database setup (sufficient for testing).
+Python API: Can fetch from and add to entries into the database.
+Backend API: Can only fetch from backend. 
+Backend bindings: Can fetch from backend.
+Flutter application (UI): Work in progress.
+
+[1]
+(high level of technicality)
+SQLite database stores JSON STRINGS!
+Flutter frontend cannot natively parse JSON strings. The module we're using is Super Editor. It uses the Document class. The Document class has methods to serialize to and from JSON. 
+However, we need to provide logic to aid in the conversion because the serialization requires a specific format to be parsed by Super Editor. 
+
+Other prominent tasks. 
+{3}[3]
+(moderate level of technicality)
+UI state.
+Certain information should be stored at the top level of the UI state. We don't want the user to have to log in every time they change screen. We also don't want to lose the information in the reader if the user
+tabs off the page. 
+So the task is to implement app state. Either Provider or Riverpod (needs some thought).
+
+[2]
+(moderate level of technicality)
+Backend API and backend bindings need to have logic added to store in the backend. 
+
+[4.5]
+(very high level of technicality)
+We need to add user login info. Will be optional. Stored in backend. 
+Frontend login/signup screen.
+Bindings/API. (communication between frontend and backend).
+Verification and encryption. (Auth tokens).
+Added to database and the appropriate API must be developed.
+
+{1}[4]
+(low level of technicality)
+User login screen
+Add a profile button/icon in the app bar. Can be done without logic.
+Screen which opens, can have the UI in place, without logic. 
+
+{2}[5]
+(medium level of technicality)
+App bar ... persist across screens? 
+So, App bar linked to app state. 
+Widget MyApp consists of an Appbar and a screen. Then only change screen. So Appbar is linked to MyApp state NOT state of screen.
+
+{4}
+(low level of technicality but low priority)
+Home page of some sort.
+The question is ... what do we put here? 
+Eventually some kind of curation / presentation / list / search.
+But for now difficult to implement because missing backend logic.
+
+{5}
+(low level of technicality but also low priority)
+Generical prettification
+
+

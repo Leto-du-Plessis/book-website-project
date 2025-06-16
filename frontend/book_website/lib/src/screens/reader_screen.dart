@@ -53,6 +53,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
   }
 }
 
+// This should probably be moved to a seperate class or something later.
+// Edit this to change the text format.
 TextStyle inlineTextStyler(Set<Attribution> attributions, TextStyle base) {
   TextStyle result = base;
 
