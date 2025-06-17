@@ -9,15 +9,15 @@ class TestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-            iconTheme: IconThemeData(
+       appBar: AppBar(
+          iconTheme: IconThemeData(
               color: Colors.red,
               ),
-            title: Container(
+          title: Container(
               padding:EdgeInsets.fromLTRB(20,0,0,0),
               child: Text('Test Screen', style:TextStyle(color: Colors.red, fontSize: 25),)),
-            centerTitle: true,
-            backgroundColor: Colors.black, 
+          centerTitle: true,
+          backgroundColor: Colors.black, 
 
         ),
         body: Center(
@@ -55,8 +55,7 @@ class HomeScreen extends StatelessWidget{
             child: ElevatedButton(
               child: const Text('TestScreen'),
               onPressed: () {
-                Navigator.push(
-                  context,
+                Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const TestScreen()),
                   );
                   },

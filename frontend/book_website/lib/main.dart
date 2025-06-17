@@ -1,5 +1,6 @@
 import 'package:book_website/src/screens/test_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:book_website/src/widgets/homepage.dart';
 //import 'package:flutter_quill/flutter_quill.dart';
 //import 'package:flutter_localizations/flutter_localizations.dart';
 //import 'src/Screens/test_screen.dart';
@@ -13,7 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(useMaterial3: true),
-      home: HomeScreen(),
+      home: HomePage(),
       // localizationsDelegates: [
       //   GlobalMaterialLocalizations.delegate,
       //   GlobalCupertinoLocalizations.delegate,
