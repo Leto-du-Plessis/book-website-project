@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:super_editor/super_editor.dart';
 
 class DocumentConverter {
@@ -28,6 +29,31 @@ class DocumentConverter {
       ],
     );
     return document;
+  }
+
+  static Map<String, dynamic> toJson(MutableDocument doc) {
+
+    return {
+      'nodes': getNodes(doc).map((node) => serializeNode(node)).toList(),
+    };
+  }
+
+  static List<DocumentNode> getNodes(MutableDocument doc) {
+    return [
+      for (var i = 0; i < doc.nodeCount; i++) 
+        if (doc.getNodeAt(i) case final node?) node
+    ];
+  }
+
+  static Map<String, dynamic> serializeNode(DocumentNode node) {
+    if (node is ParagraphNode) {
+      return {
+        'id': node.id,
+        'type': 'paragraph',
+        'text': node.text.toPlainText(), // bad, need to replace with logic to handle spans
+      };
+    }
+    throw UnimplementedError('Serialization not supported for ${node.runtimeType}.');
   }
 
 }
