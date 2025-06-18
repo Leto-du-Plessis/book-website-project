@@ -4,6 +4,7 @@ import 'package:super_editor/super_editor.dart';
 
 class DocumentConverter {
 
+  /// Creates a simple example [MutableDocument] object to act as a standin when testing UI features.
   static MutableDocument defaultDocument() {
     MutableDocument document = MutableDocument(
       nodes: [
@@ -31,6 +32,7 @@ class DocumentConverter {
     return document;
   }
 
+  /// Converts a stored Json representation of a [Document] into a [MutableDocument] object.
   static MutableDocument toDocument(Map<String, dynamic> json) {
     final nodes = (json['nodes'] as List)
       .map<DocumentNode>((nodeJson) => deserializeNode(nodeJson))
@@ -38,10 +40,12 @@ class DocumentConverter {
     return MutableDocument(nodes: nodes);
   }
 
+  /// Checks whether the provided key is in the attribution key library.
   static bool _isAttributionKey(String key) {
     return key == 'blockType';
   }
 
+  /// Converts a stored Json metadata string map into a valid String, Attribute map.
   static Map<String, dynamic> deserializeMetadata(Map<String, dynamic>? json) {
     if (json == null) return {};
     final result = <String, dynamic>{};
@@ -55,6 +59,7 @@ class DocumentConverter {
     return result;
   }
 
+  /// Converts a stored Json node into a valid [DocumentNode].
   static DocumentNode deserializeNode(Map<String, dynamic> nodeJson) {
     final type = nodeJson['type'];
     switch (type) {
@@ -65,6 +70,7 @@ class DocumentConverter {
     }
   }
 
+  /// Converts a [MutableDocument] object into a serialized Json representation.
   static Map<String, dynamic> toJson(MutableDocument doc) {
 
     return {
@@ -72,6 +78,8 @@ class DocumentConverter {
     };
   }
 
+  /// Returns all the [DocumentNode] objects in the provided [MutableDocument].
+  /// This is a helper function since the nodes getter has been removed from [MutableDocument].
   static List<DocumentNode> getNodes(MutableDocument doc) {
     return [
       for (var i = 0; i < doc.nodeCount; i++) 
@@ -79,6 +87,7 @@ class DocumentConverter {
     ];
   }
 
+  /// Returns a serialized Json representation of the metadata of a [DocumentNode].
   static Map<String, dynamic> serializeMetadata(Map<String, dynamic>? metadata) {
     if (metadata == null) return {};
     final result = <String, dynamic>{};
@@ -92,6 +101,7 @@ class DocumentConverter {
     return result;
   }
 
+  /// Converts a [DocumentNode] object into a serialized Json String representation.
   static Map<String, dynamic> serializeNode(DocumentNode node) {
     if (node is ParagraphNode) {
       return {
