@@ -38,11 +38,28 @@ class DocumentConverter {
     return MutableDocument(nodes: nodes);
   }
 
+  static bool _isAttributionKey(String key) {
+    return key == 'blockType';
+  }
+
+  static Map<String, dynamic> deserializeMetadata(Map<String, dynamic>? json) {
+    if (json == null) return {};
+    final result = <String, dynamic>{};
+    json.forEach((key, value) {
+      if (_isAttributionKey(key)) {
+        result[key] = NamedAttribution(value);
+      } else {
+        result[key] = value;
+      }
+    });
+    return result;
+  }
+
   static DocumentNode deserializeNode(Map<String, dynamic> nodeJson) {
     final type = nodeJson['type'];
     switch (type) {
       case 'paragraph':
-        return ParagraphNode(id: nodeJson['id'], text: AttributedText(nodeJson['text']));
+        return ParagraphNode(id: nodeJson['id'], text: AttributedText(nodeJson['text']), metadata: deserializeMetadata(nodeJson['metadata']));
       default:
       throw UnimplementedError('Unknown node type: $type');
     }
@@ -62,12 +79,26 @@ class DocumentConverter {
     ];
   }
 
+  static Map<String, dynamic> serializeMetadata(Map<String, dynamic>? metadata) {
+    if (metadata == null) return {};
+    final result = <String, dynamic>{};
+    metadata.forEach((key, value) {
+      if (value is NamedAttribution) {
+        result[key] = value.id;
+      } else {
+        result[key] = value;
+      }
+    });
+    return result;
+  }
+
   static Map<String, dynamic> serializeNode(DocumentNode node) {
     if (node is ParagraphNode) {
       return {
         'id': node.id,
         'type': 'paragraph',
         'text': node.text.toPlainText(), // bad, need to replace with logic to handle spans
+        'metadata': serializeMetadata(node.metadata),
       };
     }
     throw UnimplementedError('Serialization not supported for ${node.runtimeType}.');
