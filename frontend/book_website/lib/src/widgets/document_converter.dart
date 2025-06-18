@@ -31,6 +31,23 @@ class DocumentConverter {
     return document;
   }
 
+  static MutableDocument toDocument(Map<String, dynamic> json) {
+    final nodes = (json['nodes'] as List)
+      .map<DocumentNode>((nodeJson) => deserializeNode(nodeJson))
+      .toList();
+    return MutableDocument(nodes: nodes);
+  }
+
+  static DocumentNode deserializeNode(Map<String, dynamic> nodeJson) {
+    final type = nodeJson['type'];
+    switch (type) {
+      case 'paragraph':
+        return ParagraphNode(id: nodeJson['id'], text: AttributedText(nodeJson['text']));
+      default:
+      throw UnimplementedError('Unknown node type: $type');
+    }
+  }
+
   static Map<String, dynamic> toJson(MutableDocument doc) {
 
     return {
