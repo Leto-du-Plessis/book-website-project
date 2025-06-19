@@ -17,7 +17,7 @@ class DocumentService {
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      throw Exception('Failed to load codument: ${response.statusCode}');
+      throw Exception('Failed to load document: ${response.statusCode}');
     }
   }
 }
