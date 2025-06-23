@@ -9,17 +9,17 @@ class TestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-       appBar: AppBar(
-          iconTheme: IconThemeData(
-              color: Colors.red,
-              ),
-          title: Container(
-              padding:EdgeInsets.fromLTRB(20,0,0,0),
-              child: Text('Test Screen', style:TextStyle(color: Colors.red, fontSize: 25),)),
-          centerTitle: true,
-          backgroundColor: Colors.black, 
+      // appBar: AppBar(
+        //  iconTheme: IconThemeData(
+         //     color: Colors.red,
+         //     ),
+         // title: Container(
+          //    padding:EdgeInsets.fromLTRB(20,0,0,0),
+          //    child: Text('Test Screen', style:TextStyle(color: Colors.red, fontSize: 25),)),
+          //centerTitle: true,
+          //backgroundColor: Colors.black, 
 
-        ),
+        //),
         body: Center(
           child: Container(
             margin: EdgeInsetsGeometry.fromLTRB(250,10,250,50),
@@ -36,33 +36,3 @@ class TestScreen extends StatelessWidget {
 
 
 
-class HomeScreen extends StatelessWidget{
-  const HomeScreen({super.key});
-
-@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:AppBar(
-        title: const Text('Home'),
-        centerTitle: true
-        
-        ),
-      body: Padding(
-          padding: const EdgeInsets.only(left:100, top:100),
-          child: SizedBox(
-                height: 50,
-                width: 200,
-            child: ElevatedButton(
-              child: const Text('TestScreen'),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const TestScreen()),
-                  );
-                  },
-          ),
-        ),
-      ),
-    );
-  
-  }
-}
