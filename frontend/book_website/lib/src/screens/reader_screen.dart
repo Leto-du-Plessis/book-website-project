@@ -20,6 +20,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
     super.initState();
 
     _document = DocumentConverter.defaultDocument();
+    //print(DocumentConverter.toJson(DocumentConverter.defaultDocument()));
+    //_document = DocumentConverter.toDocument(DocumentConverter.toJson(DocumentConverter.defaultDocument()));
     _composer = MutableDocumentComposer();
     _editor = createDefaultDocumentEditor(document: _document, composer: _composer);
   }
