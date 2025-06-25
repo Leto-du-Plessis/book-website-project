@@ -9,12 +9,26 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: Center(
-        child: ElevatedButton(
-          child: const Text('Back to Home'),
-          onPressed: () {
-            Navigator.pop(context); 
-          },
-        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(  
+                decoration: InputDecoration(  
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your username'
+                )
+              ),
+              TextFormField(  
+                decoration: InputDecoration(  
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your password'
+                )
+              ),
+            ],
+          ),
+        )
       ),
     );
   }
