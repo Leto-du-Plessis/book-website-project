@@ -21,5 +21,4 @@ class UserProfileImage extends StatelessWidget {
       )
     );
   }
-
 }
