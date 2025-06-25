@@ -9,19 +9,30 @@ class TestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-            title: Text('Test Screen',), centerTitle: true,
-        ),
+      // appBar: AppBar(
+        //  iconTheme: IconThemeData(
+         //     color: Colors.red,
+         //     ),
+         // title: Container(
+          //    padding:EdgeInsets.fromLTRB(20,0,0,0),
+          //    child: Text('Test Screen', style:TextStyle(color: Colors.red, fontSize: 25),)),
+          //centerTitle: true,
+          //backgroundColor: Colors.black, 
+
+        //),
         body: Center(
           child: Container(
-            margin: EdgeInsetsGeometry.all(100),
+            margin: EdgeInsetsGeometry.fromLTRB(250,10,250,50),
             decoration: BoxDecoration(
               border: Border.all(),
             ),
-            padding: EdgeInsetsGeometry.all(10),
+            padding: EdgeInsetsGeometry.fromLTRB(25,10,25,10),
             child: ReaderScreen(),
           )
         )
      );
   }
 }
+
+
+
