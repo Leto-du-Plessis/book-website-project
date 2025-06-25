@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //import 'package:flutter_localizations/flutter_localizations.dart';
-import 'src/Screens/test_screen.dart';
+import 'src/screens/test_screen.dart';
 import 'src/models/app_state.dart';
 
 void main() => runApp(
