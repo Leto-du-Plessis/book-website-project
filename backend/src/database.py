@@ -81,6 +81,19 @@ class DatabaseManager:
     # Retrieve methods
     # ----------------------------------------------------
 
+    def get_user(self, username: str):
+        conn = sql.connect(self.path)
+        cursor = conn.cursor() 
+
+        cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
+        user = cursor.fetchone()
+
+        conn.close()
+
+        if user:
+            return {"id": user[0], "username": user[1], "hashed_password": user[2]}
+        return None
+
     def fetch_document_from_name(self, name: str):
         '''
         Fetch a document given the provided name.
