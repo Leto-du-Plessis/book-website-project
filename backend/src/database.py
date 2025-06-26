@@ -10,6 +10,49 @@ class DatabaseManager:
         else: 
             self.path = self._test_database_path()
 
+    # Initialization methods
+    # ----------------------------------------------------
+    
+    def initialize_books(self):
+        '''
+        Creates a table in the database to store books if it does not already exist.
+        '''
+        conn = sql.connect(self.path)
+        cursor = conn.cursor()
+
+        cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS test_database (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT,
+                    body TEXT
+                    )
+                    ''')
+
+        conn.commit()
+        conn.close()
+
+    def initialize_users(self):
+        '''
+        Creates a table in the database to store users if it does not already exist
+        '''
+        conn = sql.connect(self.path)
+        cursor = conn.cursor()
+
+        cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS user_database (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT,
+                    hashed_password TEXT,
+                    profile_image TEXT, 
+                    )
+                    ''')
+
+        conn.commit()
+        conn.close()
+
+    # Helper methods
+    # ----------------------------------------------------
+
     def _test_database_path(self) -> str:
         '''
         Returns the directory path of the test database.
@@ -18,6 +61,9 @@ class DatabaseManager:
         db_path = script_dir.parent / 'database' / 'test_database.db'
         return db_path
     
+    # Insert methods
+    # ----------------------------------------------------
+
     def insert_into_database(self, name: str, body: str):
         '''
         Inserts the provided document into the database with the name provided.
@@ -31,6 +77,9 @@ class DatabaseManager:
         
         conn.commit()
         conn.close()
+
+    # Retrieve methods
+    # ----------------------------------------------------
 
     def fetch_document_from_name(self, name: str):
         '''
