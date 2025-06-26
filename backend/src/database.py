@@ -106,7 +106,7 @@ class DatabaseManager:
         conn = sql.connect(self.path)
         cursor = conn.cursor() 
 
-        cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
+        cursor.execute("SELECT * FROM user_database WHERE username = ?", (username,))
         user = cursor.fetchone()
 
         conn.close()
