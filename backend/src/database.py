@@ -1,5 +1,6 @@
 from pathlib import Path
 import sqlite3 as sql
+from passlib.context import CryptContext
 
 class DatabaseManager:
 
@@ -9,6 +10,7 @@ class DatabaseManager:
             self.path = path
         else: 
             self.path = self._test_database_path()
+        self.pwd_context = CryptContext(schemes=["bcrypt"])
 
     # Initialization methods
     # ----------------------------------------------------
@@ -43,7 +45,7 @@ class DatabaseManager:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT,
                     hashed_password TEXT,
-                    profile_image TEXT, 
+                    profile_image TEXT 
                     )
                     ''')
 
@@ -60,6 +62,9 @@ class DatabaseManager:
         script_dir = Path(__file__).resolve().parent
         db_path = script_dir.parent / 'database' / 'test_database.db'
         return db_path
+    
+    def hash_password(self, password: str) -> str:
+        return self.pwd_context.hash(password)
     
     # Insert methods
     # ----------------------------------------------------
@@ -78,10 +83,26 @@ class DatabaseManager:
         conn.commit()
         conn.close()
 
+    def insert_user(self, username: str, password: str):
+        conn = sql.connect(self.path)
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute("""
+                INSERT INTO user_database (username, hashed_password)
+                VALUES (?, ?)
+            """, (username, self.hash_password(password)))
+
+            conn.commit()
+        except sql.IntegrityError:
+            raise ValueError("Username already exists")
+        finally:
+            conn.close()
+
     # Retrieve methods
     # ----------------------------------------------------
 
-    def get_user(self, username: str):
+    def fetch_user(self, username: str):
         conn = sql.connect(self.path)
         cursor = conn.cursor() 
 
