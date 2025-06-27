@@ -8,15 +8,17 @@ import '../utilities/text_styles.dart';
 class ReaderWindow extends StatelessWidget {
 
   final Document document;
+  final Stylesheet styleSheet;
 
-  const ReaderWindow({super.key, required this.document});
+  ReaderWindow({super.key, required this.document, Stylesheet? style})
+    : styleSheet = style ?? TextStyles.defaultStyleSheet;
 
   @override  
   Widget build(BuildContext context) {
     return Scaffold(
       body: SuperReader(
         document: document,
-        stylesheet: TextStyles.defaultStyleSheet,
+        stylesheet: styleSheet,
       ),
     );
   }

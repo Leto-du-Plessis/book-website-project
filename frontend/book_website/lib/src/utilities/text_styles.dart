@@ -21,9 +21,6 @@ class TextStyles {
       if (attributions.contains(strikethroughAttribution)) {
         result = result.merge(const TextStyle(decoration: TextDecoration.lineThrough));
       }
-      if (attributions.contains(header1Attribution)) {
-        result = result.merge(const TextStyle(fontWeight: FontWeight.bold, fontSize: 30));
-      }
 
       return result;
     };
@@ -36,6 +33,7 @@ class TextStyles {
           const BlockSelector("paragraph"),
           (doc, node) => {
             Styles.maxWidth: double.infinity,
+            Styles.textStyle: const TextStyle(fontSize: 16.0)
           },
         ),
         StyleRule( 
@@ -44,11 +42,39 @@ class TextStyles {
             Styles.textAlign: TextAlign.center,
             Styles.padding: CascadingPadding.all(16),
             Styles.maxWidth: double.infinity,
+            Styles.textStyle: const TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
           }
         )
       ], 
       inlineTextStyler: TextStyles.defaultStyler
     );
   }
-  
+
+  static Stylesheet styleSheetIncrementFontSize(Stylesheet styleSheet, double fontSizeDelta,) {
+    List<StyleRule> updatedRules = [];
+
+    for (final rule in styleSheet.rules) {
+      Map<String, dynamic> newStyler(Document document, DocumentNode node) {
+        final original = rule.styler(document, node);
+        final updated = <String, dynamic>{};
+        original.forEach((key, value) {
+          if (key == Styles.textStyle && value is TextStyle) {
+            final base = value;
+            updated[key] = base.copyWith(
+              fontSize: (base.fontSize ?? 14.0) + fontSizeDelta,
+            );
+          } else {
+            updated[key] = value;
+          }
+        });
+        return updated;
+      }
+      updatedRules.add(StyleRule(rule.selector, newStyler));
+    }
+    return Stylesheet(
+      documentPadding: styleSheet.documentPadding,
+      rules: updatedRules,
+      inlineTextStyler: styleSheet.inlineTextStyler,
+    );
+  }
 }
