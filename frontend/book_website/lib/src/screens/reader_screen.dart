@@ -13,25 +13,19 @@ class ReaderScreen extends StatefulWidget {
 
 class _ReaderScreenState extends State<ReaderScreen> {
   late final MutableDocument _document;
-  late final MutableDocumentComposer _composer;
-  late final Editor _editor;
 
   @override
   void initState() {
     super.initState();
 
     _document = DocumentConverter.defaultDocument();
-    //print(DocumentConverter.toJson(DocumentConverter.defaultDocument()));
-    //_document = DocumentConverter.toDocument(DocumentConverter.toJson(DocumentConverter.defaultDocument()));
-    _composer = MutableDocumentComposer();
-    _editor = createDefaultDocumentEditor(document: _document, composer: _composer);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SuperEditor(
-        editor: _editor,
+      body: SuperReader(
+        document: _document,
         stylesheet: Stylesheet(
           rules: [
             StyleRule( 
