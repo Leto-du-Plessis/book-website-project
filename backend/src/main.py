@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import database as db
 from auth import Authenticator
+from user import User
 
 app = FastAPI()
 database = db.DatabaseManager()
@@ -49,3 +50,15 @@ def get_document(
         document = database.fetch_document_from_id(0)
     
     return document
+
+@app.get("/get_user_information", response_model=User)
+def get_user_information(
+    name: str = Query(None)
+):
+    user_info = database.fetch_user_information(name)
+    if user_info:
+        try:
+            return User(user_info["username"], user_info["image_bytes"])
+        except ValueError as e:
+            raise HTTPException(status_code=404, detail=str(e))
+    raise HTTPException(status_code=404, detail="User could not be found.")

@@ -114,6 +114,19 @@ class DatabaseManager:
         if user:
             return {"id": user[0], "username": user[1], "hashed_password": user[2]}
         return None
+    
+    def fetch_user_information(self, username: str):
+        conn = sql.connect(self.path)
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM user_database WHERE username = ?", (username,))
+        user = cursor.fetchone()
+
+        conn.close()
+
+        if user:
+            return {"username": user[1], "image_bytes": user[3]}
+        return None
 
     def fetch_document_from_name(self, name: str):
         '''
