@@ -25,7 +25,7 @@ class Authenticator:
         return self._pwd_context.hash(password)
 
     def authenticate_user(self, username: str, password: str):
-        user = self.database.get_user(username) 
+        user = self.database.fetch_user(username) 
         if not user or not self.verify_password(password, user["hashed_password"]):
             return None
         return user 
@@ -45,7 +45,7 @@ class Authenticator:
         except JWTError:
             raise HTTPException(status_code=401, detail="Invalid token")
         
-        user = self.database.get_user(username)
+        user = self.database.fetch_user(username)
         if user is None:
             raise HTTPException(status_code=401, detail="User not found")
         
@@ -60,7 +60,7 @@ class Authenticator:
         except JWTError:
             raise HTTPException(status_code=401, detail="Invalid token")
         
-        user = self.database.get_user(username)
+        user = self.database.fetch_user(username)
         if user is None:
             raise HTTPException(status_code=401, detail="User not found")
         

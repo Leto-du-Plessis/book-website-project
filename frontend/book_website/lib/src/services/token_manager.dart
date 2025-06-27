@@ -15,6 +15,11 @@ class TokenManager {
     return prefs.getString('authToken');
   }
 
+  static Future<bool> hasToken() async {
+    final prefs = await SharedPreferencesWithCache.create(cacheOptions: _options);
+    return prefs.containsKey("authToken");
+  }
+
   static Future<void> clearToken() async {
     final prefs = await SharedPreferencesWithCache.create(cacheOptions: _options);
     await prefs.remove('authToken');

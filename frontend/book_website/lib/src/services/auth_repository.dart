@@ -31,6 +31,11 @@ class AuthRepository {
     }
   }
 
+  Future<bool> isLoggedIn() async {
+    bool hasToken = await TokenManager.hasToken();
+    return hasToken;
+  }
+
   Future<void> logout() async {
     await TokenManager.clearToken();
   }

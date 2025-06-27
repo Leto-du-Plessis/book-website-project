@@ -1,15 +1,26 @@
-import 'package:book_website/src/screens/test_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-//import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'src/screens/home_screen.dart';
 import 'src/models/app_state.dart';
+import 'src/services/auth_repository.dart';
+import 'src/services/auth_provider.dart';
 
 
 void main() => runApp(
-  ChangeNotifierProvider(
-    create: (_) => AppState(),
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => AppState(),
+      ),
+      Provider<AuthRepository>(
+        create: (_) => AuthRepository(),
+      ),
+      ChangeNotifierProvider<AuthNotifier>(
+        create: (context) => AuthNotifier(context.read<AuthRepository>()),
+      ),
+    ],
     child: const MainApp()
   )
 );
