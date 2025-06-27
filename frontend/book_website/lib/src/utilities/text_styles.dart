@@ -5,14 +5,17 @@ typedef AttributionStyler = TextStyle Function(Set<Attribution>, TextStyle);
 
 class TextStyles {
 
+  /// Private utitility method which returns the maximum of the provided [double] and 2.0.
   static double _minFontSize(double fontSize) {
     return fontSize >= 2.0 ? fontSize : 2.0;
   }
 
+  /// Private utility method which returns the minimum of the provided [double] and 100.0
   static double _maxFontSize(double fontSize) {
     return fontSize <= 100.0 ? fontSize : 100.0;
   }
 
+  /// Returns an [AttributionStyler] which implements basic formatting (bold, italics, underlines and linethrough formatting). 
   static AttributionStyler get defaultStyler {
     return (Set<Attribution> attributions, TextStyle base) {
       TextStyle result = base;
@@ -34,6 +37,7 @@ class TextStyles {
     };
   }
 
+  /// Returns the default [Stylesheet] which features minimal formatting options. 
   static Stylesheet get defaultStyleSheet {
     return Stylesheet(
       rules: [
@@ -58,6 +62,7 @@ class TextStyles {
     );
   }
 
+  /// Takes a [Stylesheet] argument and returns a new [Stylesheet] where the font size has been incremented by the provided [double] value.
   static Stylesheet styleSheetIncrementFontSize(Stylesheet styleSheet, double fontSizeDelta,) {
     List<StyleRule> updatedRules = [];
 
