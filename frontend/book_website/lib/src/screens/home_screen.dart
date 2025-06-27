@@ -71,7 +71,29 @@ class _HomeScreen extends State<HomeScreen> {
           child: Builder(
             builder:(context) {
             if(buttonstate == true) {
-              return Text('Will be searching at some point');
+              return Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Text('Will be searching at some point')),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: ConstrainedBox(
+                      
+                      constraints: const BoxConstraints(maxHeight: 200, maxWidth: 200),
+                      child: PlainCarousel()
+                    
+                    ) 
+                    
+                    
+                  )  
+
+                ]
+
+
+              );
+              
+             
              } else {
               return PlainCarousel();
             }
@@ -96,36 +118,52 @@ class PlainCarousel extends StatelessWidget {
 
   @override 
   Widget build(BuildContext context) {
-    return Scaffold(
+    return /* ListView(
+      children: <Widget>[
+        ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: 200),
+          child: CarouselView.weighted(
+            
+            itemSnapping: true,
+            flexWeights: const <int>[1, 7, 1],
+            children: [
+              Center(child: Text('1')), Center(child: Text('2')), Center(child: Text('3'),)
+            ]
+          )
+        )
+      ]
+
+    ); */
+
+    
+     Scaffold(
       body: Align(
         alignment: Alignment.topCenter,
         child: Column(
           children: [SizedBox(
           height: 200,
-          width: 200,
+          width: 600,
             child: Container(
               padding:EdgeInsetsGeometry.fromLTRB(20,10,20,20),
               child: CarouselView(
+                controller: CarouselController(),
                 scrollDirection: Axis.horizontal,
                   backgroundColor: Colors.blueAccent,
-                  itemExtent: 200,
+                  itemExtent: 400,
                   
-                  children: [
-                      Center(child: Text('Item 1')),
-                      Center(child: Text('Item 2')),
-                      Center(child: Text('Item 3')),
-                  ],
+                  children: [Center(child: Text('1')),Center(child: Text('2')),Center(child: Text('3')),Center(child: Text('4')),Center(child: Text('5')),]
+                  
+                  
+/*                   List<Widget>.generate(10, (int index) {
+                    return Center
+                      (child: Text('Item $index'),);
+                      }), */
               ),
             ),
-          
             ),
           ]
         ),
       )
-
-    );
-
+    ); 
   }
-
-
 }
