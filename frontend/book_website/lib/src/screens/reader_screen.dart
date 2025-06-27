@@ -25,7 +25,7 @@ class ReaderScreen extends StatefulWidget {
 }
 
 class _ReaderScreenState extends State<ReaderScreen> {
-  double _fontSizeDelta = 20.0;
+  double _fontSizeDelta = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +35,20 @@ class _ReaderScreenState extends State<ReaderScreen> {
         title: const Text('Reader'),
         backgroundColor: Theme.of(context).colorScheme.onSecondary,
         actions: [
+        IconButton(
+          icon: const Icon(Icons.arrow_upward_sharp, size: 28),
+          tooltip: 'Increase font size',
+          onPressed: () {
+            setState(() {_fontSizeDelta ++;});
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.arrow_downward_sharp, size: 28),
+          tooltip: 'Decrease font size',
+          onPressed: () {
+            setState(() {_fontSizeDelta --;});
+          },
+        ),
         IconButton(
           icon: 
             UserProfileImage(
