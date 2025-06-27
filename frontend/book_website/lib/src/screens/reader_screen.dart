@@ -8,6 +8,8 @@ import '../models/app_state.dart';
 import '../widgets/user_profile_image.dart';
 import '../widgets/document_converter.dart';
 
+/// The ReaderScreen [StatelessWidget] is the primary [Widget] responsible for displaying non editable [Document]s. 
+/// If decorations are not required, i.e. the reader is to be integrated into another [Widget], [ReaderWindow] should be used instead.
 class ReaderScreen extends StatelessWidget {
 
   final Document document;
@@ -42,7 +44,14 @@ class ReaderScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ReaderWindow(document: document),
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(4.0)),
+            border: BoxBorder.all( width: 4.0),
+          ),
+          child: ReaderWindow(document: document)
+        ),
       )
     );
   }
