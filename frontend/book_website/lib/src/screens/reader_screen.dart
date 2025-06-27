@@ -36,6 +36,13 @@ class _ReaderScreenState extends State<ReaderScreen> {
         backgroundColor: Theme.of(context).colorScheme.onSecondary,
         actions: [
         IconButton(
+          icon: const Icon(Icons.replay, size: 28),
+          tooltip: 'Reset font size',
+          onPressed: () {
+            setState(() {_fontSizeDelta = 0;});
+          },
+        ),
+        IconButton(
           icon: const Icon(Icons.arrow_upward_sharp, size: 28),
           tooltip: 'Increase font size',
           onPressed: () {

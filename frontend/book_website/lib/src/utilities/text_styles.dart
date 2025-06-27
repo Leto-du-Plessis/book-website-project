@@ -5,6 +5,14 @@ typedef AttributionStyler = TextStyle Function(Set<Attribution>, TextStyle);
 
 class TextStyles {
 
+  static double _minFontSize(double fontSize) {
+    return fontSize >= 2.0 ? fontSize : 2.0;
+  }
+
+  static double _maxFontSize(double fontSize) {
+    return fontSize <= 100.0 ? fontSize : 100.0;
+  }
+
   static AttributionStyler get defaultStyler {
     return (Set<Attribution> attributions, TextStyle base) {
       TextStyle result = base;
@@ -61,7 +69,7 @@ class TextStyles {
           if (key == Styles.textStyle && value is TextStyle) {
             final base = value;
             updated[key] = base.copyWith(
-              fontSize: (base.fontSize ?? 14.0) + fontSizeDelta,
+              fontSize: _minFontSize(_maxFontSize((base.fontSize ?? 14.0) + fontSizeDelta)),
             );
           } else {
             updated[key] = value;
