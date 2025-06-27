@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:super_editor/super_editor.dart';
+import 'package:provider/provider.dart';
 
+import 'login_screen.dart';
 import 'reader_window.dart';
+import '../models/app_state.dart';
+import '../widgets/user_profile_image.dart';
 import '../widgets/document_converter.dart';
 
 class ReaderScreen extends StatelessWidget {
@@ -13,8 +17,33 @@ class ReaderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageBytes = context.watch<AppState>().profileImageBytes;
     return Scaffold(
-      body: ReaderWindow(document: document)
+      appBar: AppBar( 
+        title: const Text('Home'),
+         actions: [
+          IconButton(
+            icon: 
+              UserProfileImage(
+                profileImageBytes: imageBytes,
+                size: 40,
+              ),
+            tooltip: 'Login',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const LoginScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ReaderWindow(document: document),
+      )
     );
   }
 
