@@ -22,6 +22,7 @@ class DatabaseManager:
         conn = sql.connect(self.path)
         cursor = conn.cursor()
 
+        # need to extend to also store file paths for book front cover images.
         cursor.execute('''
                     CREATE TABLE IF NOT EXISTS test_database (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,7 +46,7 @@ class DatabaseManager:
                        id INTEGER PRIMARY KEY AUTOINCREMENT,
                        name TEXT,
                        author TEXT,
-                       body TEXT,
+                       body TEXT
                        )
                        ''')
         
@@ -87,6 +88,7 @@ class DatabaseManager:
         conn = sql.connect(self.path)
         cursor = conn.cursor()
 
+        # need to change to reflect the fact that the profile_image will in fact be a file path pointing to the image.
         cursor.execute('''
                     CREATE TABLE IF NOT EXISTS user_database (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
