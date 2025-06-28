@@ -167,11 +167,9 @@ class _SplitViewState extends State<SplitView> {
             }),
             onTap: () {
               if (_isDragging) return;
-              if ((widget.canSquashRight && !widget.canSquashLeft) ||
-                  (_dividerPosition >= 0.5 && widget.canSquashRight)) {
+              if ((widget.canSquashRight && !widget.canSquashLeft) || (_dividerPosition >= 0.5 && widget.canSquashRight)) {
                 _toggleSquash(true);
-              } else if ((widget.canSquashLeft && !widget.canSquashRight) ||
-                  (_dividerPosition < 0.5 && widget.canSquashLeft)) {
+              } else if ((widget.canSquashLeft && !widget.canSquashRight) || (_dividerPosition < 0.5 && widget.canSquashLeft)) {
                 _toggleSquash(false);
               }
             },
