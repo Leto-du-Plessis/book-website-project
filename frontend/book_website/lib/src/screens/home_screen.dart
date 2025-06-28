@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../widgets/search_bar.dart';
 import 'login_screen.dart';
 import 'reader_screen.dart';
 import '../models/app_state.dart';
@@ -27,7 +27,24 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold( 
       appBar: AppBar( 
         title: const Text('Home'),
-         actions: [
+         actions: [    
+/*           ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: 50,
+              maxWidth: 50
+            ),
+            child: Container(
+              margin: EdgeInsets.all(0),
+              decoration: BoxDecoration(
+                border: Border.all(),
+              ),
+            ),
+          ),       */
+           ElevatedButton(
+            onPressed: () {setState(() { buttonstate = true;});
+            },
+            child: const Text('Search')
+          ), 
           IconButton(  
             icon: const Icon(Icons.book, size: 28),
             tooltip: 'Editor',
@@ -56,41 +73,41 @@ class _HomeScreen extends State<HomeScreen> {
               );
             },
           ),
-          ElevatedButton(
-            
-            onPressed: () {setState(() { buttonstate = true;});
-            },
-            child: const Text('Search')
-          )
+
 
 
         ],
       ),
-      body:
-        Center(
-          child: Builder(
-            builder:(context) {
-            if(buttonstate == true) {
-              return Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Text('Will be searching at some point')),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: ConstrainedBox(
-                      
-                      constraints: const BoxConstraints(maxHeight: 200, maxWidth: 200),
-                      child: PlainCarousel()
-                    
-                    ) 
-                    
-                    
-                  )  
+      body: Builder(
+              builder:(context) {
+                if(buttonstate == true) {
+                  return Row(
+                    children: [
+                       ConstrainedBox(
+                          constraints: const BoxConstraints(maxHeight: 200, maxWidth: 600),
+                          child:
+                      SearchBarWidget()
+                       )
 
+/*                       ConstrainedBox(
+                          constraints: const BoxConstraints(maxHeight: 200, maxWidth: 600),
+                          child: PlainCarousel()
+                    ), 
+                      Container(
+                      margin: EdgeInsets.fromLTRB(250,10,250,50),
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                      ),
+                      child: Text('Will be searching at some point'),
+                      ), */
+
+
+                        
+
+  
+                    
                 ]
-
-
               );
               
              
@@ -103,7 +120,7 @@ class _HomeScreen extends State<HomeScreen> {
             )
 
 
-          )
+          
  );
       
       
