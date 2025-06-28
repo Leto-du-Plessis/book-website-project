@@ -33,6 +33,9 @@ class _SplitViewState extends State<SplitView> {
   bool _isLeftSquashed = false;
   bool _isRightSquashed = false;
 
+  Offset? _dragStartPosition;
+  final double _dragThreshold = 2.0;
+
   final double squashPosition = 0.0;
   final double unSquashPosition = 0.5;
 
@@ -60,6 +63,16 @@ class _SplitViewState extends State<SplitView> {
     });
   }
 
+  Widget buildWindow(double width, Widget child) {
+  final shouldAnimate = !_isDragging;
+  return AnimatedContainer(
+    duration: shouldAnimate ? const Duration(milliseconds: 300) : Duration.zero,
+    curve: Curves.easeInOut,
+    width: width,
+    child: Center(child: child),
+  );
+}
+
   @override
   Widget build(BuildContext context) {
 
@@ -70,10 +83,7 @@ class _SplitViewState extends State<SplitView> {
 
         return Row(  
           children: [
-            SizedBox(  
-              width: leftWidth,
-              child: Center(child: widget.leftWidget),
-            ),
+            buildWindow(leftWidth, widget.leftWidget),
             MouseRegion(
               cursor: _isDragging 
                 ? SystemMouseCursors.grabbing
@@ -81,13 +91,20 @@ class _SplitViewState extends State<SplitView> {
               child: GestureDetector(  
                 behavior: HitTestBehavior.translucent,
                 onHorizontalDragStart: (details) {
-                  setState(() {
-                    _isDragging = true;
-                  });
+                  _dragStartPosition = details.globalPosition;
                 },
                 onHorizontalDragUpdate: (details) {
+                  final total = constraints.maxWidth;
+                  final dx = details.globalPosition.dx;
+                  if (!_isDragging) {
+                    final dragDistance = (dx - _dragStartPosition!.dx).abs();
+                    if (dragDistance > _dragThreshold) {
+                      setState(() {
+                        _isDragging = true;
+                      });
+                    }
+                  }
                   setState(() {
-                    final total = constraints.maxWidth;
                     _dividerPosition += details.delta.dx / total;
                     _dividerPosition = _dividerPosition.clamp(0.1, 0.9);
                     _isLeftSquashed = false;
@@ -97,6 +114,7 @@ class _SplitViewState extends State<SplitView> {
                 onHorizontalDragEnd: (_) {
                   setState(() {
                     _isDragging = false;
+                    _dragStartPosition = null;
                   });
                 },
                 onTap: () {
@@ -113,10 +131,7 @@ class _SplitViewState extends State<SplitView> {
                 ),
               ),
             ),
-            SizedBox(  
-              width: rightWidth,
-              child: Center(child: widget.rightWidget),
-            )
+            buildWindow(rightWidth, widget.rightWidget),
           ]
         );
       }
