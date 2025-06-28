@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// A SplitView [Widget] takes two [Widget] arguments and draws them in either a vertical or horizontal orientation.
+/// The two [Widget] arguments are separated by a divider. The relative size of either [Widget] can be resized by
+/// dragging the divider into the desired location. 
+/// There is support for window weightings - which determines the initial distribution of space between the two 
+/// windows. There is also support for window squashing, where windows can be automatically squashed by clicking 
+/// on the divider. This behaviour can be tailored using the boolean arguments to the SplitView constructor. 
+/// Note that by default, SplitView will adapt to the screen size and display in either a vertical or horizontal
+/// orientation for a tall or wide aspect ratio respectively. This behaviour can be changed by setting [forceAlignment] 
+/// to true and tailoring [alignmentIsVertical] to either true or false for vertical or horizontal orientation respectively.
 class SplitView extends StatefulWidget { 
 
   final Widget leftWidget;
@@ -49,6 +58,7 @@ class _SplitViewState extends State<SplitView> {
     _dividerPosition = _initialDividerPosition;
   }
 
+  /// Utility method harbouring logic for window squashing.
   void _toggleSquash(bool squashRight) {
     setState(() {
       if (squashRight) {
@@ -73,17 +83,19 @@ class _SplitViewState extends State<SplitView> {
     });
   }
 
+  /// Utility method harbouring logic for animation the window if squashed.
   Widget _buildWindow(double size, Widget child, {required bool vertical}) {
-  final shouldAnimate = !_isDragging;
-  return AnimatedContainer(
-    duration: shouldAnimate ? const Duration(milliseconds: 300) : Duration.zero,
-    curve: Curves.easeInOut,
-    width: vertical ? null : size,
-    height: vertical ? size : null,
-    child: Center(child: child),
-  );
-}
+    final shouldAnimate = !_isDragging;
+    return AnimatedContainer(
+      duration: shouldAnimate ? const Duration(milliseconds: 300) : Duration.zero,
+      curve: Curves.easeInOut,
+      width: vertical ? null : size,
+      height: vertical ? size : null,
+      child: Center(child: child),
+    );
+  }
 
+  /// Utility method harbouring the logic for constructing the horizontal orientation.
   Widget _buildHorizontalLayout(BoxConstraints constraints) {
     final totalWidth = constraints.maxWidth;
     final leftWidth = (_dividerPosition * totalWidth).clamp(0.0, totalWidth - gripWidth);
@@ -139,6 +151,7 @@ class _SplitViewState extends State<SplitView> {
     );
   }
 
+  /// Utility method harbouring the logic for constructing the vertical orientation.
   Widget _buildVerticalLayout(BoxConstraints constraints) {
     final totalHeight = constraints.maxHeight;
     final topHeight = (_dividerPosition * totalHeight).clamp(0.0, totalHeight - gripWidth);
