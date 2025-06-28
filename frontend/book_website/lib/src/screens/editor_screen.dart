@@ -35,6 +35,8 @@ class _EditorScreenState extends State<EditorScreen> {
         leftWidget: EditorWindow(editor: _editor), 
         rightWidget: EditorControlsWindow(), 
         canSquashLeft: false,
+        leftWeight: 0.8,
+        rightWeight: 0.2,
       ),
     );
   }

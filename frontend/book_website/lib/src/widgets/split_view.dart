@@ -8,6 +8,8 @@ class SplitView extends StatefulWidget {
   final bool canSquashLeft;
   final bool forceAlignment;
   final bool alignmentIsVertical;
+  final double leftWeight;
+  final double rightWeight;
 
   const SplitView({
     super.key, 
@@ -16,7 +18,9 @@ class SplitView extends StatefulWidget {
     this.canSquashLeft = true,
     this.canSquashRight = true,
     this.forceAlignment = false,
-    this.alignmentIsVertical = false
+    this.alignmentIsVertical = false,
+    this.leftWeight = 0.5,
+    this.rightWeight = 0.5,
   });
 
   @override
@@ -26,7 +30,8 @@ class SplitView extends StatefulWidget {
 
 class _SplitViewState extends State<SplitView> {
 
-  double _dividerPosition = 0.5;
+  late double _dividerPosition;
+  late double _initialDividerPosition;
   final double gripWidth = 10;
 
   bool _isDragging = false;
@@ -36,14 +41,19 @@ class _SplitViewState extends State<SplitView> {
   Offset? _dragStartPosition;
   final double _dragThreshold = 2.0;
 
-  final double squashPosition = 0.0;
-  final double unSquashPosition = 0.5;
+  @override
+  void initState() {
+    super.initState();
+    final total = widget.leftWeight + widget.rightWeight;
+    _initialDividerPosition = total == 0 ? 0.5 : widget.leftWeight / total;
+    _dividerPosition = _initialDividerPosition;
+  }
 
   void _toggleSquash(bool squashRight) {
     setState(() {
       if (squashRight) {
         if (_isRightSquashed) {
-          _dividerPosition = unSquashPosition;
+          _dividerPosition = _initialDividerPosition;
           _isRightSquashed = false;
         } else {
           _dividerPosition = 1.0;
@@ -52,7 +62,7 @@ class _SplitViewState extends State<SplitView> {
         }
       } else {
         if (_isLeftSquashed) {
-          _dividerPosition = unSquashPosition;
+          _dividerPosition = _initialDividerPosition;
           _isLeftSquashed = false;
         } else {
           _dividerPosition = 0.0;
@@ -112,9 +122,9 @@ class _SplitViewState extends State<SplitView> {
             }),
             onTap: () {
               if (_isDragging) return;
-              if ((widget.canSquashRight && !widget.canSquashLeft) || (_dividerPosition >= 0.5 && widget.canSquashRight)) {
+              if ((widget.canSquashRight && !widget.canSquashLeft) || (_dividerPosition >= _initialDividerPosition && widget.canSquashRight)) {
                 _toggleSquash(true);
-              } else if ((widget.canSquashLeft && !widget.canSquashRight) || (_dividerPosition < 0.5 && widget.canSquashLeft)) {
+              } else if ((widget.canSquashLeft && !widget.canSquashRight) || (_dividerPosition < _initialDividerPosition && widget.canSquashLeft)) {
                 _toggleSquash(false);
               }
             },
@@ -167,9 +177,9 @@ class _SplitViewState extends State<SplitView> {
             }),
             onTap: () {
               if (_isDragging) return;
-              if ((widget.canSquashRight && !widget.canSquashLeft) || (_dividerPosition >= 0.5 && widget.canSquashRight)) {
+              if ((widget.canSquashRight && !widget.canSquashLeft) || (_dividerPosition >= _initialDividerPosition && widget.canSquashRight)) {
                 _toggleSquash(true);
-              } else if ((widget.canSquashLeft && !widget.canSquashRight) || (_dividerPosition < 0.5 && widget.canSquashLeft)) {
+              } else if ((widget.canSquashLeft && !widget.canSquashRight) || (_dividerPosition < _initialDividerPosition && widget.canSquashLeft)) {
                 _toggleSquash(false);
               }
             },
