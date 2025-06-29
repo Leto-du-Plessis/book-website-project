@@ -31,8 +31,18 @@ class BookListService {
 
   BookListService();
 
-  Future<List<BookSummary>> fetchBookList() async {
-    final response = await http.get(Uri.parse('$apiURL/books'));
+  Future<List<BookSummary>> fetchBookList({
+    String? genre,
+    int? limit,
+    String? sortBy,
+  }) async {
+    final queryParams = <String, String>{};
+    if (genre != null) queryParams['genre'] = genre;
+    if (limit != null) queryParams['limit'] = limit.toString();
+    if (sortBy != null) queryParams['sort_by'] = sortBy;
+    final uri = Uri.parse('$apiURL/book_list').replace(queryParameters: queryParams);
+
+    final response = await http.get(uri);
 
     if (response.statusCode == 200) {
       final List<dynamic> jsonList = jsonDecode(response.body);
