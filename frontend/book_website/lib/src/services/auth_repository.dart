@@ -9,6 +9,7 @@ class AuthRepository {
   final String baseUrl = 'http://127.0.0.1:8000';
 
   Future<bool> login(String username, String password) async {
+    print("hello?");
     final response = await http.post(
       Uri.parse("$baseUrl/token"),
       headers: {"Content-Type": "application/x-www-form-urlencoded"},
@@ -17,16 +18,20 @@ class AuthRepository {
         "password": password,
       }
     );
+    print("[LOGIN] Response received: ${response.statusCode}");
 
     if (response.statusCode == 200) {
 
       final data = jsonDecode(response.body);
       final token = data["access_token"];
+      print("[LOGIN] Token received: $token");
 
       await TokenManager.saveToken(token);
+      print("[LOGIN] Token saved");
       return true;
 
     } else {
+      print("[LOGIN] Login failed: ${response.body}");
       return false;
     }
   }

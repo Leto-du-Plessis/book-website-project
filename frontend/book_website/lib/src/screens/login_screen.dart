@@ -28,15 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _loading = false);
 
     if (success) {
-      if (context.mounted) {
-        Navigator.of(context).pop();
-      }
+      Navigator.pop(context);
     } else {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid credentials")),
       );
-      }
     }
   }
 
