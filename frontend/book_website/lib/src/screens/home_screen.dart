@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 
 import 'login_screen.dart';
 import 'reader_screen.dart';
+import 'editor_screen.dart';
 import '../models/app_state.dart';
 import '../widgets/user_profile_image.dart';
+import '../widgets/split_view.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -24,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.push(  
                 context,
                 MaterialPageRoute(  
-                  builder: (_) => ReaderScreen(),
+                  builder: (_) => EditorScreen(),
                 ),
               );
             }
@@ -47,7 +49,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(child: Text('Home Screen stuff.')),
+      body: const SplitView(leftWidget: Text("Left"), rightWidget: Text("Right")),
     );
   }
 }

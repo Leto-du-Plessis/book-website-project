@@ -15,13 +15,14 @@ class DatabaseManager:
     # Initialization methods
     # ----------------------------------------------------
     
-    def initialize_books(self):
+    def initialize_test_books(self):
         '''
         Creates a table in the database to store books if it does not already exist.
         '''
         conn = sql.connect(self.path)
         cursor = conn.cursor()
 
+        # need to extend to also store file paths for book front cover images.
         cursor.execute('''
                     CREATE TABLE IF NOT EXISTS test_database (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,6 +34,53 @@ class DatabaseManager:
         conn.commit()
         conn.close()
 
+    def initialize_books(self):
+        '''
+        Creates a table in the database to store books if it does not already exist.
+        '''
+        conn = sql.connect(self.path)
+        cursor = conn.cursor()
+
+        cursor.execute('''
+                       CREATE TABLE IF NOT EXISTS books_database (
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       name TEXT,
+                       author TEXT,
+                       body TEXT
+                       )
+                       ''')
+        
+    def initialize_genres(self):
+        '''
+        Creates a table in the database to store genres if it does not already exist.
+        '''
+        conn = sql.connect(self.path)
+        cursor = conn.cursor()
+
+        cursor.execute('''
+                       CREATE TABLE IF NOT EXISTS genres_database (
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       name TEXT UNIQUE
+                       )
+                       ''')
+        
+    def initialize_book_genres(self):
+        '''
+        Creates a table in the database to store genres per book if it does not already exist.
+        '''
+        conn = sql.connect(self.path)
+        cursor = conn.cursor()
+
+        cursor.execute('''
+                       CREATE TABLE IF NOT EXISTS book_genres_database (
+                       book_id INTEGER,
+                       genre_id INTEGER,
+                       FOREIGN KEY(book_id) REFERENCES books_database(id),
+                       FOREIGN KEY(genre_id) REFERENCES genres_database(id),
+                       PRIMARY KEY(book_id, genre_id)
+                       )
+                       ''')
+
     def initialize_users(self):
         '''
         Creates a table in the database to store users if it does not already exist
@@ -40,6 +88,7 @@ class DatabaseManager:
         conn = sql.connect(self.path)
         cursor = conn.cursor()
 
+        # need to change to reflect the fact that the profile_image will in fact be a file path pointing to the image.
         cursor.execute('''
                     CREATE TABLE IF NOT EXISTS user_database (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
