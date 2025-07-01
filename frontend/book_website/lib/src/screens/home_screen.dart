@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
     final imageBytes = context.watch<AppState>().profileImageBytes;
     final List<BookSummary>? bookList = context.watch<AppState>().bookList;
 
+    // Temporary logic
     Widget leftWidget;
 
     if (bookList == null) {
