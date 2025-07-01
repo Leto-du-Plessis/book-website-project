@@ -24,8 +24,15 @@ class SmallBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Container( 
+      color: Theme.of(context).cardColor,
+      child: Column(  
+        children: [
+          Text(title),
+          if (tagline != null) Text(tagline!),
+        ]
+      )
+    );
   }
   
 

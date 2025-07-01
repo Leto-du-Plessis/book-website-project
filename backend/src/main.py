@@ -1,3 +1,4 @@
+import typing 
 from typing import Optional
 from datetime import timedelta
 
@@ -8,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import database as db
 from auth import Authenticator
 from user import User
+from book_summary import BookSummary
 
 app = FastAPI()
 database = db.DatabaseManager()
@@ -62,3 +64,18 @@ def get_user_information(
         except ValueError as e:
             raise HTTPException(status_code=404, detail=str(e))
     raise HTTPException(status_code=404, detail="User could not be found.")
+
+@app.get("/book_list", response_model=list[BookSummary])
+def get_book_list(  
+    genre: Optional[str] = Query(None),  
+    limit: Optional[int] = Query(10),
+    sort_by: Optional[str] = Query("populatiry")
+):
+    # Example list for testing purposes.
+    # TODO: develop methods in database to handle requests and return actual lists from the backend.
+    book_list = [
+            BookSummary(id=0, title='Dune', tagline='A sci-fi space opera', summary=None, imageId=None),
+            BookSummary(id=1, title='Treasure Island', tagline=None, summary=None, imageId=None)
+        ]
+    
+    return book_list

@@ -48,7 +48,7 @@ class BookListService {
       final List<dynamic> jsonList = jsonDecode(response.body);
       return jsonList.map((json) => BookSummary.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to load books');
+      throw Exception('Failed to load books: ${response.statusCode}');
     }
   }
 

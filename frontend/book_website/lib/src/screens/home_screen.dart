@@ -5,8 +5,10 @@ import 'login_screen.dart';
 import 'reader_screen.dart';
 import 'editor_screen.dart';
 import '../models/app_state.dart';
+import '../models/book_summary.dart';
 import '../widgets/user_profile_image.dart';
 import '../widgets/split_view.dart';
+import '../widgets/small_book_card.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -15,6 +17,26 @@ class HomeScreen extends StatelessWidget {
   @override build(BuildContext context) {
 
     final imageBytes = context.watch<AppState>().profileImageBytes;
+    final List<BookSummary>? bookList = context.watch<AppState>().bookList;
+
+    Widget leftWidget;
+
+    if (bookList == null) {
+      leftWidget = Center(
+        child: ElevatedButton(
+          onPressed: () => context.read<AppState>().fetchBookList(),
+          child: const Text("Fetch Book List"),
+        ),
+      );
+    } else {
+      leftWidget = CarouselView(
+        itemExtent: 500,
+        children: bookList
+            .map((book) => SmallBookCard.fromBookSummary(bookSummary: book))
+            .toList(),
+      );
+    }
+
     return Scaffold( 
       appBar: AppBar( 
         title: const Text('Home'),
@@ -49,7 +71,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const SplitView(leftWidget: Text("Left"), rightWidget: Text("Right")),
+      body: SplitView(leftWidget: leftWidget, rightWidget: Text("Right")),
     );
   }
 }
