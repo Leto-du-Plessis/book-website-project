@@ -1,3 +1,5 @@
+import 'package:book_website/src/screens/carousel_window.dart';
+import 'package:book_website/src/screens/search_option_window.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +60,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: SplitView(leftWidget: Text("Left"), rightWidget: Text("Right")),
+        body: SplitView(leftWidget: CarouselWindow(), rightWidget: SearchOptionsWindow()),
       ),
     );
   }
