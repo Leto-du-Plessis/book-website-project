@@ -52,6 +52,27 @@ class BookListService {
     }
   }
 
+  Future<List<BookSummary>> fetchCustomBookList({
+    String? search,
+    String? genre,
+    String? tag,
+  }) async {
+    final queryParams = <String, String>{};
+    if (search != null) queryParams['search'] = search;
+    if (genre != null) queryParams['genre'] = genre;
+    if (tag != null) queryParams['tag'] = tag;
+    final uri = Uri.parse('$apiURL/custom_book_list').replace(queryParameters: queryParams);
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      return jsonList.map((json) => BookSummary.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load books: ${response.statusCode}');
+    }
+  }
+
   Future<List<BookSummary>> fetchTrendingBookList() async {
     final uri = Uri.parse('$apiURL/trending_book_list');
 

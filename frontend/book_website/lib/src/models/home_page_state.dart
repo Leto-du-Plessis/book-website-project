@@ -9,16 +9,49 @@ class HomePageState extends ChangeNotifier {
 
   final BookListService _bookListService;
 
-  String? searchText;
-  String? genreFilter;
-  String? tagFilter;
+  String? _searchText;
+  String? _genreFilter;
+  String? _tagFilter;
 
   ListOfBooks? _customList;
+
+  int _lastSearchRequestId = 0;
+
   ListOfBooks? _trendingList;
   ListOfBooks? _fantasyList;
   ListOfBooks? _scifiList;
 
   HomePageState(this._bookListService);
+
+  void updateSearchText(String? search) {
+    _searchText = search;
+    _refreshCustomList();
+  }
+
+  void updateGenreFilter(String? genre) {
+    _genreFilter = genre;
+    _refreshCustomList();
+  }
+
+  void updateTagFilter(String? tag) {
+    _tagFilter = tag;
+    _refreshCustomList();
+  }
+
+  void _refreshCustomList() async {
+    final int requestId = ++_lastSearchRequestId;
+
+    final result = await _bookListService.fetchCustomBookList(
+      search: _searchText,
+      genre: _genreFilter,
+      tag: _tagFilter,
+    );
+
+    if (requestId == _lastSearchRequestId) {
+      _customList = result;
+      notifyListeners();
+    }
+  }
 
   Future<void> getTrendingList() async {
     ListOfBooks list = await _bookListService.fetchTrendingBookList();
