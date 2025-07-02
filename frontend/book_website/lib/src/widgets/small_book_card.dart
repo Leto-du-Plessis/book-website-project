@@ -4,7 +4,7 @@ import '../models/book_summary.dart';
 
 class SmallBookCard extends StatelessWidget {
 
-  final String title;
+  final String? title;
   final String? tagline;
   final String? imageId;
 
@@ -14,6 +14,11 @@ class SmallBookCard extends StatelessWidget {
     this.tagline,
     this.imageId,
   });
+
+  const SmallBookCard.loadingPlaceholder({super.key}) : 
+    title = null,
+    tagline = null,
+    imageId = null;
 
   SmallBookCard.fromBookSummary({
     super.key, 
@@ -28,12 +33,10 @@ class SmallBookCard extends StatelessWidget {
       color: Theme.of(context).cardColor,
       child: Column(  
         children: [
-          Text(title),
+          title == null ? const Center(child: CircularProgressIndicator()) : Text(title!),
           if (tagline != null) Text(tagline!),
         ]
       )
     );
   }
-  
-
 }
