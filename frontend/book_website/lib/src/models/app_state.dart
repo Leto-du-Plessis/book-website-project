@@ -13,8 +13,6 @@ import '../services/services.dart';
 class AppState extends ChangeNotifier {
 
   User? _user;
-  List<BookSummary>? _bookList;
-  final BookListService _bookListService = BookListService(); 
 
   String get username => _user?.username ?? 'User';
 
@@ -24,18 +22,4 @@ class AppState extends ChangeNotifier {
     _user = user;
     notifyListeners();
   }
-
-  void fetchBookList({
-    String? genre,
-    int? limit,
-    String? sortBy,
-  }) async {
-    _bookList = await _bookListService.fetchBookList(genre: genre, limit: limit, sortBy: sortBy);
-    notifyListeners();
-  }
-
-  List<BookSummary>? get bookList {
-    return _bookList;
-  }
-
 }
