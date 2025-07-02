@@ -52,4 +52,43 @@ class BookListService {
     }
   }
 
+  Future<List<BookSummary>> fetchTrendingBookList() async {
+    final uri = Uri.parse('$apiURL/trending_book_list');
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      return jsonList.map((json) => BookSummary.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load books: ${response.statusCode}');
+    }
+  }
+
+  Future<List<BookSummary>> fetchFantasyBookList() async {
+    final uri = Uri.parse('$apiURL/fantasy_book_list');
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      return jsonList.map((json) => BookSummary.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load books: ${response.statusCode}');
+    }
+  }
+
+  Future<List<BookSummary>> fetchScifiBookList() async {
+    final uri = Uri.parse('$apiURL/scifi_book_list');
+
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      return jsonList.map((json) => BookSummary.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load books: ${response.statusCode}');
+    }
+  }
+
 }
