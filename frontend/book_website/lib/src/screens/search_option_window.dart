@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/search_bar.dart';
+import '../widgets/custom_search_bar.dart';
 class SearchOptionsWindow extends StatelessWidget {
   const SearchOptionsWindow({super.key});
 
@@ -9,7 +9,7 @@ class SearchOptionsWindow extends StatelessWidget {
       decoration: BoxDecoration(
         border: BoxBorder.all()
       ),
-      child: SearchBarWidget()
+      child: CustomSearchBar()
 
     );
 
