@@ -27,7 +27,7 @@ class SmallBookCard extends StatelessWidget {
          tagline = bookSummary.tagline,
          imageId = bookSummary.imageId;
 
-  @override
+@override
   Widget build(BuildContext context) {
     return Container( 
       decoration: BoxDecoration(
