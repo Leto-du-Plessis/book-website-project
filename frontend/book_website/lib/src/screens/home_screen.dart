@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: SplitView(leftWidget: CarouselWindow(), rightWidget: SearchOptionsWindow(), leftWeight: 0.85,rightWeight: 0.15,canSquashLeft: false,),
+        body: SplitView(leftWidget: CarouselWindow(), rightWidget: SearchOptionsWindow(), leftWeight: 0.85, rightWeight: 0.15, canSquashLeft: false,),
       ),
     );
   }

@@ -16,23 +16,20 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                hintText: 'Search',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0)
-                )
-              ),
-            onChanged: (text){context.read<HomePageState>().updateSearchText(text);},
-
- 
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          controller: _searchController,
+          decoration: InputDecoration(
+            hintText: 'Search',
+            prefixIcon: const Icon(Icons.search),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.0)
             )
-            
-            )
-      );
+          ),
+        onChanged: (text){context.read<HomePageState>().updateSearchText(text);},
+        )
+      )
+    );
   }
 }

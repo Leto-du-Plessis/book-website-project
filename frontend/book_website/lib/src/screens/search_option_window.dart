@@ -8,24 +8,22 @@ const List<String> list = <String>['Any', 'Fantasy', 'Sci-fi', 'Adventure', 'Rom
 class SearchOptionsWindow extends StatelessWidget {
   const SearchOptionsWindow({super.key});
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
-    body: Column(
-      children: [
-        Container(
-          height: 65,
-          decoration: BoxDecoration(
-            border: BoxBorder.all()
+      body: Column(
+        children: [
+          Container(
+            height: 65,
+            decoration: BoxDecoration(
+              border: BoxBorder.all()
+            ),
+            child: CustomSearchBar()
           ),
-          child: CustomSearchBar()
-      
-        ),
-        Text('Seach by Genre', textAlign: TextAlign.left,),
-        GenreButton()
-      ]
-    )
+          Text('Seach by Genre', textAlign: TextAlign.left,),
+          GenreButton()
+        ]
+      )
     ); 
   }
 }
@@ -46,18 +44,18 @@ class _GenreButtonState extends State<GenreButton> {
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
-      onChanged: (String? value){
-          
+      onChanged: (String? value) {
         setState(() {
           dropdownValue = value!;
         });
         final text = value =="Any"? null: value;
-        context.read<HomePageState>().updateGenreFilter(text);},
-      
+        context.read<HomePageState>().updateGenreFilter(text);
+      },
       items:
-          list.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(value: value, child: Text(value));
-          }).toList(),
+        list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(value: value, child: Text(value));
+        }
+      ).toList(),
     );
   }
 }

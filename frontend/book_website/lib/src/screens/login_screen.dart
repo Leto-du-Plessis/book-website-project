@@ -34,8 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Invalid credentials")),
-      );
+          const SnackBar(content: Text("Invalid credentials")),
+        );
       }
     }
   }

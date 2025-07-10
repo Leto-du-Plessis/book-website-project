@@ -28,11 +28,12 @@ class CustomCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return Align(
-        alignment: Alignment.center,
-        child: Column(
-          children: [SizedBox(
-          height: 200,
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 200,
             child: Container(
               padding:EdgeInsetsGeometry.fromLTRB(20,10,20,20),
               child: CarouselView(
@@ -43,10 +44,10 @@ class CustomCarousel extends StatelessWidget {
                 children: _createList(),
               ),
             ),
-            ),
-          ]
-        ),
-      ); 
+          ),
+        ]
+      ),
+    ); 
   } 
 }
 
