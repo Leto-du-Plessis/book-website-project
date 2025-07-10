@@ -11,6 +11,7 @@ import '../services/services.dart';
 import '../widgets/user_profile_image.dart';
 import '../widgets/split_view.dart';
 import '../widgets/small_book_card.dart';
+import '../widgets/custom_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -58,7 +59,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: SplitView(leftWidget: Text("Left"), rightWidget: Text("Right")),
+        body: SplitView(leftWidget: CustomCarousel(), rightWidget: Text("Right")),
       ),
     );
   }

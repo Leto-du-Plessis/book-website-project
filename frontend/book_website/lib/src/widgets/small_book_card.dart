@@ -30,8 +30,11 @@ class SmallBookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container( 
-      color: Theme.of(context).cardColor,
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+      ),
       child: Column(  
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           title == null ? const Center(child: CircularProgressIndicator()) : Text(title!),
           if (tagline != null) Text(tagline!),

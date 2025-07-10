@@ -40,32 +40,36 @@ class HomePageState extends ChangeNotifier {
 
   void _refreshCustomList() async {
     final int requestId = ++_lastSearchRequestId;
+    // TODO fix this dank ass shit 
+    try {
+      final result = await _bookListService.fetchCustomBookList(
+        search: _searchText,
+        genre: _genreFilter,
+        tag: _tagFilter,
+      ).timeout(const Duration(seconds: 1));
 
-    final result = await _bookListService.fetchCustomBookList(
-      search: _searchText,
-      genre: _genreFilter,
-      tag: _tagFilter,
-    );
-
-    if (requestId == _lastSearchRequestId) {
-      _customList = result;
-      notifyListeners();
+      if (requestId == _lastSearchRequestId) {
+        _customList = result;
+        notifyListeners();
+      }
+    } catch(e) {
+      debugPrint('$e');
     }
   }
 
-  Future<void> getTrendingList() async {
+  Future<void> fetchTrendingList() async {
     ListOfBooks list = await _bookListService.fetchTrendingBookList();
     _trendingList = list;
     notifyListeners();
   }
 
-  Future <void> getFantasyList() async {
+  Future <void> fetchFantasyList() async {
     ListOfBooks list = await _bookListService.fetchFantasyBookList();
     _fantasyList = list;
     notifyListeners();
   }
 
-  Future <void> getScifiList() async {
+  Future <void> fetchScifiList() async {
     ListOfBooks list = await _bookListService.fetchScifiBookList();
     _scifiList = list;
     notifyListeners();
